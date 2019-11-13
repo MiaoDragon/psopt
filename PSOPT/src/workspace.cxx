@@ -124,7 +124,7 @@ void initialize_workspace_vars(Prob& problem, Alg& algorithm, Sol& solution, Wor
     workspace->hess_jc   = NULL;
     workspace->lambda_d  = NULL;
   }
-  
+
   if ( algorithm.nlp_method == "SNOPT") {
   	workspace->iGfun     = new unsigned int[(int) (algorithm.jac_sparsity_ratio*max_nvars*(max_ncons+1))];
   	workspace->jGvar     = new unsigned int[(int) (algorithm.jac_sparsity_ratio*max_nvars*(max_ncons+1))];
@@ -259,11 +259,11 @@ void initialize_workspace_vars(Prob& problem, Alg& algorithm, Sol& solution, Wor
 
   workspace->mesh_statistics_tex = fopen( fname.c_str(),"w");
 
-  if (workspace->psopt_solution_summary_file == NULL) error_message("Error opening \"psopt_solution_summary.txt\" file");
+  //if (workspace->psopt_solution_summary_file == NULL) error_message("Error opening \"psopt_solution_summary.txt\" file");
 
-  if (workspace->mesh_statistics == NULL) error_message("Error opening \"mesh_statistics.txt\" file");
+  //if (workspace->mesh_statistics == NULL) error_message("Error opening \"mesh_statistics.txt\" file");
 
-  if (workspace->mesh_statistics_tex == NULL) error_message("Error opening \"mesh_statistics.tex\" file");
+  //if (workspace->mesh_statistics_tex == NULL) error_message("Error opening \"mesh_statistics.tex\" file");
 
   for(i=0;i<problem.nphases;i++) {
      workspace->emax_history[i].Resize(50,2);
@@ -320,7 +320,7 @@ void resize_workspace_vars(Prob& problem, Alg& algorithm, Sol& solution, Workspa
 
   workspace->xlb->Resize(nvars,1);
   workspace->xub->Resize(nvars,1);
-  
+
   workspace->nphases = problem.nphases;
 
   for(i=0; i< problem.nphases; i++)
@@ -508,4 +508,3 @@ work_str::~work_str()
   delete this->grw;
 
 }
-
