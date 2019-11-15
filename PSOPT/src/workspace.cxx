@@ -251,14 +251,14 @@ void initialize_workspace_vars(Prob& problem, Alg& algorithm, Sol& solution, Wor
 
   string fname = "psopt_solution_" + problem.outfilename.substr(0,dotindex) + ".txt";
 
-  workspace->psopt_solution_summary_file = fopen(fname.c_str(),"w");
+  //workspace->psopt_solution_summary_file = fopen(fname.c_str(),"w");
+  workspace->psopt_solution_summary_file = NULL;
+  //workspace->mesh_statistics = fopen("mesh_statistics.txt","w");
+  workspace->mesh_statistics = NULL;
+  //fname = "mesh_statistics_" + problem.outfilename.substr(0,dotindex) + ".tex";
 
-  workspace->mesh_statistics = fopen("mesh_statistics.txt","w");
-
-  fname = "mesh_statistics_" + problem.outfilename.substr(0,dotindex) + ".tex";
-
-  workspace->mesh_statistics_tex = fopen( fname.c_str(),"w");
-
+  //workspace->mesh_statistics_tex = fopen( fname.c_str(),"w");
+  workspace->mesh_statistics_tex = NULL;
   //if (workspace->psopt_solution_summary_file == NULL) error_message("Error opening \"psopt_solution_summary.txt\" file");
 
   //if (workspace->mesh_statistics == NULL) error_message("Error opening \"mesh_statistics.txt\" file");
