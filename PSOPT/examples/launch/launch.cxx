@@ -609,9 +609,6 @@ int main(void)
     problem.phases(iphase).bounds.upper.events(4)     = Omf;
     problem.phases(iphase).bounds.upper.events(5)     = omf;
 
-    problem.phases(iphase).bounds.lower.StartTime     = 0.0;
-    problem.phases(iphase).bounds.upper.StartTime     = 0.0;
-
 ////////////////////////////////////////////////////////////////////////////
 ///////////////////  Define & register initial guess ///////////////////////
 ////////////////////////////////////////////////////////////////////////////
