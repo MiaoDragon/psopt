@@ -95,7 +95,7 @@ void dae(adouble* derivatives, adouble* path, adouble* states,
 {
 
     int j;
-    
+
     Constants_& CONSTANTS = *( (Constants_ *) workspace->problem->user_data );
 
     adouble* x = states;
@@ -204,7 +204,7 @@ void events(adouble* e, adouble* initial_states, adouble* final_states,
 
 
    Constants_& CONSTANTS = *( (Constants_ *) workspace->problem->user_data );
-   
+
    adouble rv[3]; rv[0]=final_states[0]; rv[1]=final_states[1]; rv[2]=final_states[2];
    adouble vv[3]; vv[0]=final_states[3]; vv[1]=final_states[4]; vv[2]=final_states[5];
 
@@ -281,9 +281,9 @@ int main(void)
 ///////////////////  Declare an instance of Constants structure /////////////
 ////////////////////////////////////////////////////////////////////////////
 
-    
-    Constants_ CONSTANTS;    
-    
+
+    Constants_ CONSTANTS;
+
     problem.user_data = (void*) &CONSTANTS;
 
 
@@ -608,6 +608,9 @@ int main(void)
     problem.phases(iphase).bounds.upper.events(3)     = incf;
     problem.phases(iphase).bounds.upper.events(4)     = Omf;
     problem.phases(iphase).bounds.upper.events(5)     = omf;
+
+    problem.phases(iphase).bounds.lower.StartTime     = 0.0;
+    problem.phases(iphase).bounds.upper.StartTime     = 0.0;
 
 ////////////////////////////////////////////////////////////////////////////
 ///////////////////  Define & register initial guess ///////////////////////
