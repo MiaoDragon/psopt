@@ -251,7 +251,8 @@ void gg_ad( adouble* xad, adouble* gad, Workspace* workspace )
                     for (j=0; j<nstates; j++) {
                           resid[j] = states_next[j]-states[j]-hk*derivatives[j];
 	   	          l = phase_offset+(k-1)*nstates+j;
-		          gad[l] = resid[j]*(tf-t0)/(2.0*hk);
+                  gad[l] = resid[j];
+		          //gad[l] = resid[j]*(tf-t0)/(2.0*hk);
 		          if ( algorithm->scaling=="user" )
 		   		  gad[l] *=deriv_scaling(j+1);
                     }
