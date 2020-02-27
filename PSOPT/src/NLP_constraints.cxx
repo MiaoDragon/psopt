@@ -159,7 +159,8 @@ void gg_ad( adouble* xad, adouble* gad, Workspace* workspace )
              }
         }
 
-        if ( workspace->differential_defects != "Hermite-Simpson" && workspace->differential_defects != "trapezoidal") {
+        if ( workspace->differential_defects != "Hermite-Simpson" && workspace->differential_defects != "trapezoidal" \
+             && workspace->differential_defects != "linear") {
 	  mtrx_mul_trans(states_traj,D.GetPr(), derivs_traj,nstates, norder+1,norder+1,norder+1);
 	}
 
@@ -186,7 +187,8 @@ void gg_ad( adouble* xad, adouble* gad, Workspace* workspace )
 		workspace->solution->mesh_stats[  workspace->current_mesh_refinement_iteration-1 ].n_ode_rhs_evals++;
 	    }
 
-            if (workspace->differential_defects != "Hermite-Simpson" && workspace->differential_defects != "trapezoidal"  ) {
+            if (workspace->differential_defects != "Hermite-Simpson" && workspace->differential_defects != "trapezoidal" \
+                 && workspace->differential_defects != "linear" ) {
                 // Differentiation matrix based defects
 
                 for (j=0; j<nstates; j++) {
@@ -216,6 +218,38 @@ void gg_ad( adouble* xad, adouble* gad, Workspace* workspace )
 		    }
                     for (j=0; j<nstates; j++) {
                           resid[j] = states_next[j]-states[j]-hk*(derivatives[j]+derivatives_next[j])/2.0;
+	   	          l = phase_offset+(k-1)*nstates+j;
+		          gad[l] = resid[j]*(tf-t0)/(2.0*hk);
+		          if ( algorithm->scaling=="user" )
+		   		  gad[l] *=deriv_scaling(j+1);
+                    }
+                }
+                else {
+                    for (j=0; j<nstates; j++) {
+	   	        l = phase_offset+(k-1)*nstates+j;
+		        gad[l] = 0.0;
+                    }
+                }
+
+            }
+            //*** added new method for kmpnet
+            else if (workspace->differential_defects == "linear") {
+            // Trapezoidal method
+                if (k!=(norder+1)) {
+                    adouble* states_next      = workspace->states_next[i];
+                    adouble* controls_next    = workspace->controls_next[i];
+                    //adouble* derivatives_next = workspace->derivatives_next[i];
+                    //adouble* path_next        = workspace->path_next[i];
+                    adouble  time_next        = convert_to_original_time_ad( (workspace->snodes[i])(k+1), t0, tf );
+                    adouble  hk               = time_next-time;
+                    get_states(states_next, xad, iphase, k+1, workspace);
+                    get_controls(controls_next, xad, iphase, k+1, workspace);
+                    //problem->dae(derivatives_next,path_next,states_next,controls_next,parameters,time_next,xad, iphase,workspace);
+		    if (workspace->enable_nlp_counters) {
+			workspace->solution->mesh_stats[  workspace->current_mesh_refinement_iteration-1 ].n_ode_rhs_evals++;
+		    }
+                    for (j=0; j<nstates; j++) {
+                          resid[j] = states_next[j]-states[j]-hk*derivatives[j];
 	   	          l = phase_offset+(k-1)*nstates+j;
 		          gad[l] = resid[j]*(tf-t0)/(2.0*hk);
 		          if ( algorithm->scaling=="user" )
@@ -381,4 +415,3 @@ void gg_ad( adouble* xad, adouble* gad, Workspace* workspace )
 
 
 }
-

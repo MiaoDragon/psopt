@@ -256,7 +256,9 @@ void evaluate_solution(Prob& problem,Alg& algorithm,Sol& solution, Workspace* wo
 	if (use_local_collocation(algorithm) && workspace->differential_defects=="trapezoidal") {
              solution.mesh_stats[ workspace->current_mesh_refinement_iteration-1 ].method = "TRP";
         }
-
+    else if (use_local_collocation(algorithm) && workspace->differential_defects=="trapezoidal") {
+             solution.mesh_stats[ workspace->current_mesh_refinement_iteration-1 ].method = "TRP";
+        }
         else if (use_local_collocation(algorithm)&& workspace->differential_defects == "Hermite-Simpson") {
              solution.mesh_stats[ workspace->current_mesh_refinement_iteration-1 ].method = "H-S";
         }

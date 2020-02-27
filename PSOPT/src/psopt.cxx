@@ -127,7 +127,7 @@ string contact_notice=  "\n * The author can be contacted at his email address: 
 	  problem.phase[i-1].zero_cost_integrand = true;
       }
   }
-  
+
   for (iter_nodes=1; iter_nodes<= number_of_mesh_refinement_iterations; iter_nodes++) {
 
 
@@ -142,6 +142,10 @@ string contact_notice=  "\n * The author can be contacted at his email address: 
 
     if (algorithm.collocation_method=="trapezoidal") {
              workspace->differential_defects = "trapezoidal";
+    }
+    else if (algorithm.collocation_method=="linear")
+    {
+            workspace->differential_defects = "linear";
     }
 
     else if (algorithm.collocation_method == "Hermite-Simpson") {
@@ -613,6 +617,11 @@ string contact_notice=  "\n * The author can be contacted at his email address: 
                         (solution.dual.path[i])(colon(),k) = -(solution.dual.path[i])(colon(),k)*(2.0/(hk+hk_1));
                     }
         	    }
+                if ( algorithm.collocation_method == "linear") {
+                    // modified according to a variance to trapezoidal problem
+                    double hk = (solution.nodes[i])(k+1)-(solution.nodes[i])(k);
+                    (solution.dual.path[i])(colon(),k) = -(solution.dual.path[i])(colon(),k)*hk;
+        	    }
            	    if ( algorithm.collocation_method == "Hermite-Simpson") {
            	        // These are the path constraint adjoint estimates for Hermite-Simpson discretization
            	        // See Betts (2010), p. 177.
@@ -799,9 +808,7 @@ string contact_notice=  "\n * The author can be contacted at his email address: 
 
 
   if (workspace) delete  workspace;
-  
+
   return;
 
 }
-
-
