@@ -39,8 +39,8 @@ void validate_user_input(Prob& problem, Alg& algorithm, Workspace* workspace)
 
     if (algorithm.nlp_method != "IPOPT" )
        error_message("Incorrect NLP method specified. The only valid value is \"IPOPT\" ");
-    if (algorithm.collocation_method != "Legendre" && algorithm.collocation_method!="Chebyshev" && algorithm.collocation_method!="trapezoidal" && algorithm.collocation_method!="Hermite-Simpson")
-       error_message("Incorrect pseudospectral method specified. Valid options are \"Legendre\" , \"Chebyshev\", \"trapezoidal\", and \"Hermite-Simpson\" ");
+    if (algorithm.collocation_method != "Legendre" && algorithm.collocation_method!="Chebyshev" && algorithm.collocation_method!="trapezoidal" && algorithm.collocation_method!="Hermite-Simpson" && algorithm.collocation_method!="linear")
+       error_message("Incorrect pseudospectral method specified. Valid options are \"Legendre\" , \"Chebyshev\", \"trapezoidal\", \"linear\", and \"Hermite-Simpson\" ");
     if (algorithm.scaling != "automatic" && algorithm.scaling!="user")
        error_message("Incorrect scaling option specified. Valid options are \"automatic\" and \"user\" ");
     if (algorithm.defect_scaling != "state-based" && algorithm.defect_scaling!="jacobian-based")
@@ -250,4 +250,3 @@ void validate_user_input(Prob& problem, Alg& algorithm, Workspace* workspace)
 
 
 }
-

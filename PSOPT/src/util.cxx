@@ -783,7 +783,7 @@ adouble convert_to_original_time_ad(double tbar,adouble& t0,adouble& tf)
 bool use_local_collocation(Alg & algorithm)
 {
 
-     if (algorithm.collocation_method == "trapezoidal" || algorithm.collocation_method=="Hermite-Simpson")
+     if (algorithm.collocation_method == "trapezoidal" || algorithm.collocation_method=="Hermite-Simpson" || algorithm.collocation_method=="linear")
          return true;
      else return false;
 
@@ -909,7 +909,3 @@ void copy_decision_variables(Sol& solution, DMatrix& x, Prob& problem, Alg& algo
   }
 
 }
-
-
-
-
