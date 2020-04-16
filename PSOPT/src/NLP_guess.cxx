@@ -30,7 +30,7 @@ e-mail:    v.m.becerra@ieee.org
 
 
 #include "psopt.h"
-
+#include <iostream>
 
 void  define_initial_nlp_guess(DMatrix& x0, DMatrix& lambda, Sol& solution, Prob& problem, Alg& algorithm, Workspace* workspace)
 {
@@ -116,8 +116,10 @@ void  define_initial_nlp_guess(DMatrix& x0, DMatrix& lambda, Sol& solution, Prob
 
 
 	if ( !problem.phase[i].guess.states.isEmpty() ) {
+        std::cout << "guess states is not empty" << std::endl;
 		for (k=1;k<=nstates;k++) {
 			xp = problem.phase[i].guess.states(k,colon());
+            std::cout << "states(n,k)=" << xp(1) << std::endl;
 //			lagrange_interpolation(xn,solution.nodes[i],time_guess, xp);
             linear_interpolation(xn,solution.nodes[i],time_guess, xp, length(xp));
 			(solution.states[i])(k,colon())  = xn;
@@ -360,5 +362,3 @@ void hot_start_nlp_guess(DMatrix& x0,DMatrix& lambda, Sol& solution,Prob& proble
   determine_constraint_scaling_factors(x0, solution, problem, algorithm, workspace);
 
 }
-
-
