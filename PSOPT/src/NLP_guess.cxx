@@ -114,7 +114,7 @@ void  define_initial_nlp_guess(DMatrix& x0, DMatrix& lambda, Sol& solution, Prob
 	}
 	}
 
-
+    std::cout << "NLP_guess, linear_iterpolation" <<std::endl;
 	if ( !problem.phase[i].guess.states.isEmpty() ) {
         std::cout << "guess states is not empty" << std::endl;
 		for (k=1;k<=nstates;k++) {
@@ -123,6 +123,7 @@ void  define_initial_nlp_guess(DMatrix& x0, DMatrix& lambda, Sol& solution, Prob
 //			lagrange_interpolation(xn,solution.nodes[i],time_guess, xp);
             linear_interpolation(xn,solution.nodes[i],time_guess, xp, length(xp));
 			(solution.states[i])(k,colon())  = xn;
+            std::cout << "after linear iterpolation: states(n,k)=" << (solution.states[i])(k,1) << std::endl;
 		}
 
 	}
@@ -152,6 +153,7 @@ void  define_initial_nlp_guess(DMatrix& x0, DMatrix& lambda, Sol& solution, Prob
 	}
 
 	// Determine the scaling factors to be used
+    std::cout << "determining the scaling factors" << std::endl;
 
 	determine_scaling_factors_for_variables(solution,problem,algorithm);
 
@@ -184,6 +186,7 @@ void  define_initial_nlp_guess(DMatrix& x0, DMatrix& lambda, Sol& solution, Prob
         x_phase_offset += nvars_phase_i;
 
   }
+  std::cout << "determining the objective scaling" << std::endl;
 
   determine_objective_scaling(x0,solution,problem,algorithm, workspace);
 
