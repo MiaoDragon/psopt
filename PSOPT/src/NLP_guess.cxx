@@ -85,6 +85,9 @@ void  define_initial_nlp_guess(DMatrix& x0, DMatrix& lambda, Sol& solution, Prob
 
 	if ( !problem.phase[i].guess.time.isEmpty()) {
 		time_guess = problem.phase[i].guess.time;
+        std::cout << "time_guess(1): " << time_guess(1) << std::endl;
+        std::cout << "time_guess(21): " << time_guess(21) << std::endl;
+
 	} else {
 		time_guess = linspace(t00,tf0,norder+1);
 	}
