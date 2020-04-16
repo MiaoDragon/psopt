@@ -73,7 +73,7 @@ void  define_nlp_bounds(DMatrix& xlb, DMatrix& xub, Prob& problem, Alg& algorith
 		     xub(colon(x_phase_offset+(k-1)*ncontrols+1, x_phase_offset+k*ncontrols) ) = elemProduct((problem.phase[i].bounds.upper.controls),control_scaling);
                 }
 		xub(colon(x_phase_offset+(k-1)*nstates+1+offset1, x_phase_offset+k*nstates+offset1))=elemProduct((problem.phase[i].bounds.upper.states),state_scaling);
-        std::cout << "setting xub=" << xub(colon(x_phase_offset+(k-1)*nstates+1+offset1, x_phase_offset+k*nstates+offset1),1) << std::endl;
+        std::cout << "setting xub=" << xub(1,colon(x_phase_offset+(k-1)*nstates+1+offset1, x_phase_offset+k*nstates+offset1)) << std::endl;
 	}
 
         offset1 = (nstates+ncontrols)*(norder+1);
