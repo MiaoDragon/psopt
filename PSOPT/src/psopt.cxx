@@ -313,9 +313,9 @@ string contact_notice=  "\n * The author can be contacted at his email address: 
     }
 
   // Define NLP bounds on the decision vector
-    std::cout << "defining nlp bounds..." << std::endl;
+    //std::cout << "defining nlp bounds..." << std::endl;
     define_nlp_bounds(*workspace->xlb, *workspace->xub, problem, algorithm, workspace);
-    std::cout << "nlp bound defined." << std::endl;
+    //std::cout << "nlp bound defined." << std::endl;
 
     nlp_neq = 0; //   equality constraints
 

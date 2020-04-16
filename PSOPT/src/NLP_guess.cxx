@@ -85,8 +85,8 @@ void  define_initial_nlp_guess(DMatrix& x0, DMatrix& lambda, Sol& solution, Prob
 
 	if ( !problem.phase[i].guess.time.isEmpty()) {
 		time_guess = problem.phase[i].guess.time;
-        std::cout << "time_guess(1): " << time_guess(1) << std::endl;
-        std::cout << "time_guess(21): " << time_guess(21) << std::endl;
+        //std::cout << "time_guess(1): " << time_guess(1) << std::endl;
+        //std::cout << "time_guess(21): " << time_guess(21) << std::endl;
 
 	} else {
 		time_guess = linspace(t00,tf0,norder+1);
@@ -117,16 +117,16 @@ void  define_initial_nlp_guess(DMatrix& x0, DMatrix& lambda, Sol& solution, Prob
 	}
 	}
 
-    std::cout << "NLP_guess, linear_iterpolation" <<std::endl;
+    //std::cout << "NLP_guess, linear_iterpolation" <<std::endl;
 	if ( !problem.phase[i].guess.states.isEmpty() ) {
-        std::cout << "guess states is not empty" << std::endl;
+        //std::cout << "guess states is not empty" << std::endl;
 		for (k=1;k<=nstates;k++) {
 			xp = problem.phase[i].guess.states(k,colon());
-            std::cout << "states(n,k)=" << xp(1) << std::endl;
+            //std::cout << "states(n,k)=" << xp(1) << std::endl;
 //			lagrange_interpolation(xn,solution.nodes[i],time_guess, xp);
             linear_interpolation(xn,solution.nodes[i],time_guess, xp, length(xp));
 			(solution.states[i])(k,colon())  = xn;
-            std::cout << "after linear iterpolation: states(n,k)=" << (solution.states[i])(k,1) << std::endl;
+            //std::cout << "after linear iterpolation: states(n,k)=" << (solution.states[i])(k,1) << std::endl;
 		}
 
 	}
@@ -156,7 +156,7 @@ void  define_initial_nlp_guess(DMatrix& x0, DMatrix& lambda, Sol& solution, Prob
 	}
 
 	// Determine the scaling factors to be used
-    std::cout << "determining the scaling factors" << std::endl;
+    //std::cout << "determining the scaling factors" << std::endl;
 
 	determine_scaling_factors_for_variables(solution,problem,algorithm);
 
@@ -189,7 +189,7 @@ void  define_initial_nlp_guess(DMatrix& x0, DMatrix& lambda, Sol& solution, Prob
         x_phase_offset += nvars_phase_i;
 
   }
-  std::cout << "determining the objective scaling" << std::endl;
+  //std::cout << "determining the objective scaling" << std::endl;
 
   determine_objective_scaling(x0,solution,problem,algorithm, workspace);
 
